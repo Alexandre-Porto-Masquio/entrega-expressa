@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">entrega-expressa</string>
+    <string name="fab">FAB</string>
 </resources>
