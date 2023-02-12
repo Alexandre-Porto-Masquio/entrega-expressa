@@ -7,8 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryListBinding
-import com.apmasquio.entrega_expressa.presentation.recyclerview.adapter.DeliveryListAdapter
-import com.example.orgs.presentation.activity.DeliveryFormActivity
+import com.apmasquio.entrega_expressa.presentation.adapter.DeliveryListAdapter
 
 class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) {
 

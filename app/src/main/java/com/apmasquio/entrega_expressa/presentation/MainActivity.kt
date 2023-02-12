@@ -2,8 +2,8 @@ package com.apmasquio.entrega_expressa.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.github.apmasquio.`entrega-expressa`.R
-import com.github.apmasquio.`entrega-expressa`.databinding.ActivityMainBinding
+import com.apmasquio.`entrega_expressa`.R
+import com.apmasquio.`entrega_expressa`.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -10,12 +10,12 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    namespace 'com.github.apmasquio.entrega-expressa'
+    namespace 'com.apmasquio.entrega_expressa'
     compileSdk 33
     buildToolsVersion "33.0.2"
 
     defaultConfig {
-        applicationId "com.github.apmasquio.entrega-expressa"
+        applicationId "com.apmasquio.entrega_expressa"
         minSdk 21
         targetSdk 32
         versionCode 1

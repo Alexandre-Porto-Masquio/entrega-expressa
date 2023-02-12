@@ -1,4 +1,4 @@
-package com.example.orgs.presentation.activity
+package com.apmasquio.entrega_expressa.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +17,7 @@ class DeliveryFormActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = "Cadastrar Produto"
+        title = "Cadastrar Entrega"
         formBinding = ActivityDeliveryFormBinding.inflate(layoutInflater)
         val formView = formBinding.root
         setContentView(formView)
@@ -43,11 +43,11 @@ class DeliveryFormActivity :
         botaoSalvar.setOnClickListener {
 
             val db = AppDatabase.dbInstance(this)
-            val produtoDao = db.deliveryDao()
+            val deliveryDao = db.deliveryDao()
             if (deliveryId > 0 && ::delivery.isInitialized) {
-                produtoDao.update(createDelivery())
+                deliveryDao.update(createDelivery())
             } else {
-                produtoDao.salva(createDelivery())
+                deliveryDao.salva(createDelivery())
             }
             finish()
         }
