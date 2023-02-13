@@ -6,11 +6,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryDetailsBinding
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_details) {
 
@@ -35,7 +39,11 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
     override fun onResume() {
         super.onResume()
         deliveryId.let { id ->
-            delivery = deliveryDao.searchById(id)
+            lifecycleScope.launch {
+                withContext(Dispatchers.IO) {
+                    delivery = deliveryDao.searchById(id)
+                }
+            }
         }
         delivery?.let {
             fillFields(it)
@@ -55,7 +63,11 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
                     this, "clicou no menu remover", Toast.LENGTH_SHORT
                 ).show()
                 delivery?.let {
-                    deliveryDao.delete(it)
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            deliveryDao.delete(it)
+                        }
+                    }
                 }
                 finish()
             }
