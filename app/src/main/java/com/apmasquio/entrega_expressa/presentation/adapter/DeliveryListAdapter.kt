@@ -8,6 +8,9 @@ import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.DeliveryItemBinding
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import com.apmasquio.entrega_expressa.presentation.DeliveryDetailsActivity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DeliveryListAdapter(
     deliveries : List<Delivery> = emptyList()
@@ -55,6 +58,8 @@ class DeliveryListAdapter(
     fun atualiza(deliveries: List<Delivery>) {
         this.deliveries.clear()
         this.deliveries.addAll(deliveries)
+    }
+    fun notifyData() {
         notifyDataSetChanged()
     }
 

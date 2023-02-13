@@ -88,13 +88,13 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         binding.dateDetailDelivery.setText(deliveryCarregado.date)
         binding.clientDetailDelivery.setText(deliveryCarregado.client)
         binding.cpfDetailDelivery.setText(deliveryCarregado.cpf)
-        binding.cepDetailDelivery.setText(deliveryCarregado.address.cep)
-        binding.ufDetailDelivery.setText(deliveryCarregado.address.uf)
-        binding.cityDetailDelivery.setText(deliveryCarregado.address.city)
-        binding.neighborhoodDetailDelivery.setText(deliveryCarregado.address.neighborhood)
-        binding.streetDetailDelivery.setText(deliveryCarregado.address.street)
-        binding.numberDetailDelivery.setText(deliveryCarregado.address.number)
-        binding.complementDetailDelivery.setText(deliveryCarregado.address.complement)
+        binding.cepDetailDelivery.setText(deliveryCarregado.cep)
+        binding.ufDetailDelivery.setText(deliveryCarregado.uf)
+        binding.cityDetailDelivery.setText(deliveryCarregado.city)
+        binding.neighborhoodDetailDelivery.setText(deliveryCarregado.neighborhood)
+        binding.streetDetailDelivery.setText(deliveryCarregado.street)
+        binding.numberDetailDelivery.setText(deliveryCarregado.number)
+        binding.complementDetailDelivery.setText(deliveryCarregado.complement)
 
     }
 

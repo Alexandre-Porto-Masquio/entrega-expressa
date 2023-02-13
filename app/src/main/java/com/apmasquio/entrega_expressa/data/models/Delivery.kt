@@ -9,6 +9,7 @@ import java.math.BigDecimal
 @Entity
 @Parcelize
 data class Delivery(
+    //Delivery
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0L,
     val name: String,
@@ -16,5 +17,12 @@ data class Delivery(
     val date: String,
     val client: String,
     val cpf: String,
-    val address: Address
+    //Address
+    val cep: String,
+    val uf: String,
+    val city: String,
+    val neighborhood: String,
+    val street: String,
+    val number: String,
+    val complement: String
     ) : Parcelable

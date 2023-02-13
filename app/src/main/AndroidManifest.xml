@@ -21,6 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presentation.DeliveryListActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.DeliveryDetailsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.DeliveryFormActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

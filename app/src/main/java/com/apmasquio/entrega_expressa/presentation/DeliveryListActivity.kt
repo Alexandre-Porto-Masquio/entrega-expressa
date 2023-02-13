@@ -2,12 +2,15 @@ package com.apmasquio.entrega_expressa.presentation
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryListBinding
 import com.apmasquio.entrega_expressa.presentation.adapter.DeliveryListAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) {
 
@@ -31,13 +34,17 @@ class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) 
         super.onResume()
         val db = AppDatabase.dbInstance(this)
         val deliveryDao = db.deliveryDao()
-        adapter.atualiza(deliveryDao.buscaTodos())
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                adapter.atualiza(deliveryDao.getAll())
+            }
+        }
+        adapter.notifyData()
     }
 
     private fun intentFab() {
         val fabAddDelivery = binding.fabAddDelivery
         fabAddDelivery.setOnClickListener {
-            Toast.makeText(this, "apertou o buto", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, DeliveryFormActivity::class.java)
             startActivity(intent)
         }

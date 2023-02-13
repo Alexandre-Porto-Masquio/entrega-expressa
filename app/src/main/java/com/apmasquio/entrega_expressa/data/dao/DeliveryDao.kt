@@ -7,10 +7,10 @@ import com.apmasquio.entrega_expressa.data.models.Delivery
 interface DeliveryDao {
 
     @Query("SELECT * FROM Delivery")
-    fun buscaTodos(): List<Delivery>
+    fun getAll(): List<Delivery>
 
     @Insert
-    fun salva(vararg delivery: Delivery)
+    fun save(vararg delivery: Delivery)
 
     @Delete
     fun delete(delivery: Delivery)
