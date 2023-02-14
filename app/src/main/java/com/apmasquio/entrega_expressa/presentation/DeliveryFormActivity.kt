@@ -28,6 +28,7 @@ class DeliveryFormActivity :
     private lateinit var formBinding: ActivityDeliveryFormBinding
     private lateinit var spinner: Spinner
     private lateinit var adapter: ArrayAdapter<String>
+    private var ufSelectedSpinnerItem: String = ""
     private var deliveryId = 0L
     private val thisContext = this
 
@@ -110,12 +111,11 @@ class DeliveryFormActivity :
     private fun configureSpinnerListener() {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                val selectedValue = parent?.getItemAtPosition(position).toString()
-                // Do something with the selected value
+                ufSelectedSpinnerItem = parent?.getItemAtPosition(position).toString()
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
-                // Do something when nothing is selected
+                ufSelectedSpinnerItem = ""
             }
         }
     }
@@ -193,8 +193,7 @@ class DeliveryFormActivity :
         val fieldCep = formBinding.textCepDeliveryForm
         val cep = fieldCep.text.toString()
 
-        val fieldUf = formBinding.textUfDeliveryForm
-        val uf = fieldUf.text.toString()
+        val uf = ufSelectedSpinnerItem
 
         val fieldCity = formBinding.textCityDeliveryForm
         val city = fieldCity.text.toString()
