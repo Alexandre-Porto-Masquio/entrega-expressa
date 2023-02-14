@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
@@ -17,8 +16,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_details) {
-
-    private var deliveryId: Long = 0
     private var delivery: Delivery? = null
     private val binding by lazy {
         ActivityDeliveryDetailsBinding.inflate(layoutInflater)
@@ -33,22 +30,11 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         title = "Detalhes da Entrega"
 
         setContentView(binding.root)
-        tryLoadDelivery()
     }
 
     override fun onResume() {
         super.onResume()
-        deliveryId.let { id ->
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    delivery = deliveryDao.searchById(id)
-                }
-            }
-        }
-        delivery?.let {
-            fillFields(it)
-        } ?: finish()
-
+        tryLoadDelivery()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -59,9 +45,6 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_details_remove -> {
-                Toast.makeText(
-                    this, "clicou no menu remover", Toast.LENGTH_SHORT
-                ).show()
                 delivery?.let {
                     lifecycleScope.launch {
                         withContext(Dispatchers.IO) {
@@ -73,13 +56,9 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
             }
 
             R.id.menu_detais_edit -> {
-                Toast.makeText(
-                    this, "clicou no menu editar", Toast.LENGTH_SHORT
-                ).show()
                 Intent(this, DeliveryFormActivity::class.java).apply {
                     putExtra(DELIVERY_KEY, delivery)
                     startActivity(this)
-
                 }
             }
         }
@@ -87,15 +66,21 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
     }
 
     private fun tryLoadDelivery() {
-
-        intent.getParcelableExtra<Delivery>(DELIVERY_KEY)?.let { produtoCarregado ->
-            delivery = produtoCarregado
-            deliveryId = produtoCarregado.id
-        } ?: finish()
+        val db = AppDatabase.dbInstance(this)
+        val deliveryDao = db.deliveryDao()
+        lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                val deliveries = deliveryDao.getAll()
+                intent.getIntExtra(DELIVERY_KEY,-1).let { position ->
+                    delivery = deliveries[position]
+                    fillFields(delivery!!)
+                }
+            }
+        }
     }
 
     private fun fillFields(deliveryCarregado: Delivery) {
-        binding.nameDetailDelivery.setText("Nome: " + deliveryCarregado.name)
+        binding.nameDetailDelivery.setText(deliveryCarregado.name)
         binding.quantityDetailDelivery.setText(deliveryCarregado.quantity)
         binding.dateDetailDelivery.setText(deliveryCarregado.date)
         binding.clientDetailDelivery.setText(deliveryCarregado.client)

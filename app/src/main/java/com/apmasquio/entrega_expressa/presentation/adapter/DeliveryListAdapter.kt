@@ -8,9 +8,6 @@ import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.DeliveryItemBinding
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import com.apmasquio.entrega_expressa.presentation.DeliveryDetailsActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DeliveryListAdapter(
     deliveries : List<Delivery> = emptyList()
@@ -21,11 +18,11 @@ class DeliveryListAdapter(
     class ViewHolder(private val binding: DeliveryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun vincula(delivery: Delivery) {
+        fun vincula(delivery: Delivery, position: Int) {
             //Click leads to detail screen
             binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, DeliveryDetailsActivity::class.java)
-                intent.putExtra(DELIVERY_KEY, delivery)
+                intent.putExtra(DELIVERY_KEY, position)
                 binding.root.context.startActivity(intent)
             }
 
@@ -50,7 +47,7 @@ class DeliveryListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val delivery = deliveries[position]
-        holder.vincula(delivery)
+        holder.vincula(delivery, position)
     }
 
     override fun getItemCount(): Int = deliveries.size

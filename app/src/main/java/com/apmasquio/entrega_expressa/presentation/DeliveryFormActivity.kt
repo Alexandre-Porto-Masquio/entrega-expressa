@@ -56,9 +56,9 @@ class DeliveryFormActivity :
                         } else {
                             deliveryDao.save(createDelivery())
                         }
+                        finish()
                     }
                 }
-                finish()
             } else {
                 Toast.makeText(this, "Por favor, preencha os campos necessários.", Toast.LENGTH_SHORT).show()
             }
