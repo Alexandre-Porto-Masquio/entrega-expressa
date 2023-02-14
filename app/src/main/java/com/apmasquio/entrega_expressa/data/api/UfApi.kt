@@ -1,13 +1,18 @@
 package com.apmasquio.entrega_expressa.data.api
 
-import org.json.JSONObject
+import com.apmasquio.entrega_expressa.data.models.Uf
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface UfApi {
-    @GET("localidades/estados/{UF}/distritos")
-    suspend fun getDistricts(): List<JSONObject>
+
+    @GET("localidades/estados")
+    suspend fun getUfs(): List<Uf>
+
+    @GET("localidades/estados/{uf}/municipios")
+    suspend fun getCities(@Path("uf") uf: String)
 
     companion object {
         private const val BASE_URL = "https://servicodados.ibge.gov.br/api/v1/"

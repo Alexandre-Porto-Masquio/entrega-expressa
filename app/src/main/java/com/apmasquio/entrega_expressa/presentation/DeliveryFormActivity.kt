@@ -1,13 +1,21 @@
 package com.apmasquio.entrega_expressa.presentation
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
+import com.apmasquio.entrega_expressa.data.api.UfApi
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryFormBinding
+import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryFormViewModel
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,12 +23,17 @@ import kotlinx.coroutines.withContext
 
 class DeliveryFormActivity :
     AppCompatActivity(R.layout.activity_delivery_form) {
+    private lateinit var formViewModel: DeliveryFormViewModel
     private lateinit var delivery: Delivery
     private lateinit var formBinding: ActivityDeliveryFormBinding
+    private lateinit var spinner: Spinner
+    private lateinit var adapter: ArrayAdapter<String>
     private var deliveryId = 0L
+    private val thisContext = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         title = "Cadastrar Entrega"
         formBinding = ActivityDeliveryFormBinding.inflate(layoutInflater)
         val formView = formBinding.root
@@ -34,19 +47,44 @@ class DeliveryFormActivity :
             fillForm(loadedDelivery)
         }
 
+        spinner = formBinding.spinnerUfDeliveryForm
         configureSaveButton()
+        configureSpinnerListener()
+    }
 
+    private fun configureViewModel() {
+        formViewModel = ViewModelProvider(this).get(DeliveryFormViewModel::class.java)
+
+        formViewModel.formData.observe(this, Observer {
+            populateSpinner()
+        })
+    }
+
+    private fun populateSpinner() {
+        adapter = formViewModel.formData.value?.let { ArrayAdapter(
+            thisContext,
+            android.R.layout.simple_spinner_item,
+            it
+        )}!!
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        configSpinnerAdapter(spinner, adapter)
+    }
+
+    private fun configSpinnerAdapter(spinner: Spinner, adapter: ArrayAdapter<String>) {
+        spinner.adapter = adapter
     }
 
     override fun onResume() {
         super.onResume()
+        configureViewModel()
+        formViewModel.getUfs()
     }
 
     private fun configureSaveButton() {
         val saveButton = formBinding.btSaveDeliveryForm
         saveButton.setOnClickListener {
 
-            if (validateFields()){
+            if (validateFields()) {
                 val db = AppDatabase.dbInstance(this)
                 val deliveryDao = db.deliveryDao()
                 lifecycleScope.launch {
@@ -60,7 +98,24 @@ class DeliveryFormActivity :
                     }
                 }
             } else {
-                Toast.makeText(this, "Por favor, preencha os campos necessários.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Por favor, preencha os campos necessários.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun configureSpinnerListener() {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedValue = parent?.getItemAtPosition(position).toString()
+                // Do something with the selected value
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                // Do something when nothing is selected
             }
         }
     }

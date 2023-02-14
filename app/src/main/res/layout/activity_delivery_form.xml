@@ -183,6 +183,44 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/tvStateDeliveryForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/boxSpinnerUfDeliveryForm"
+            android:background="@color/white"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="40dp"
+            android:textSize="14sp"
+            android:text="Estado - UF" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/boxSpinnerUfDeliveryForm"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:hint="Estado - UF"
+            android:backgroundTint="@color/transparent"
+            app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
+            app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
+            app:layout_constraintTop_toBottomOf="@+id/boxCepDeliveryForm"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:strokeColor="@color/black">
+            <Spinner
+                android:id="@+id/spinnerUfDeliveryForm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
+                app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
+                app:layout_constraintTop_toBottomOf="@+id/boxCepDeliveryForm" />
+        </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/boxUfDeliveryForm"
             android:layout_width="match_parent"
@@ -192,7 +230,7 @@
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
-            app:layout_constraintTop_toBottomOf="@+id/boxCepDeliveryForm"
+            app:layout_constraintTop_toBottomOf="@+id/boxSpinnerUfDeliveryForm"
             android:hint="Estado - UF"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
