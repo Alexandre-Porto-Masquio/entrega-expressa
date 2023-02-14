@@ -8,7 +8,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".presentation.activity.DeliveryFormActivity">
 
         <TextView
@@ -20,7 +20,7 @@
             android:layout_marginStart="16dp"
             android:textSize="17sp"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Dados da entrega:" />
+            android:text="@string/dados_da_entrega" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/boxNameDeliveryForm"
@@ -32,7 +32,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDeliveryForm"
-            android:hint="Nome"
+            android:hint="@string/hintName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -57,7 +57,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxNameDeliveryForm"
-            android:hint="Quantidade"
+            android:hint="@string/hintQuantidade"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -82,7 +82,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxQuantityDeliveryForm"
-            android:hint="Data limite"
+            android:hint="@string/hintDataLimite"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -107,7 +107,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxDateDeliveryForm"
-            android:hint="Nome do cliente"
+            android:hint="@string/nome_do_cliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -132,7 +132,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxClientDeliveryForm"
-            android:hint="CPF do cliente"
+            android:hint="@string/cpf_do_cliente"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -156,7 +156,7 @@
             android:layout_marginStart="16dp"
             android:textSize="17sp"
             app:layout_constraintTop_toBottomOf="@id/boxCpfDeliveryForm"
-            android:text="Endereço de destino da entrega:" />
+            android:text="@string/endere_o_de_destino_da_entrega" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/boxCepDeliveryForm"
@@ -168,7 +168,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/tvAddressForm"
-            android:hint="CEP"
+            android:hint="@string/cep"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -183,68 +183,32 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <Spinner
+            android:id="@+id/spinnerUfDeliveryForm"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:padding="16dp"
+            android:background="@drawable/spinner_background"
+            app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
+            app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
+            app:layout_constraintTop_toBottomOf="@+id/boxCepDeliveryForm" />
+
         <TextView
             android:id="@+id/tvStateDeliveryForm"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/boxSpinnerUfDeliveryForm"
-            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/spinnerUfDeliveryForm"
+            android:background="@drawable/text_view_background"
+            android:padding="4dp"
             android:layout_marginTop="16dp"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="40dp"
             android:textSize="14sp"
-            android:text="Estado - UF" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/boxSpinnerUfDeliveryForm"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Estado - UF"
-            android:backgroundTint="@color/transparent"
-            app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
-            app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
-            app:layout_constraintTop_toBottomOf="@+id/boxCepDeliveryForm"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:strokeColor="@color/black">
-            <Spinner
-                android:id="@+id/spinnerUfDeliveryForm"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
-                app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
-                app:layout_constraintTop_toBottomOf="@+id/boxCepDeliveryForm" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/boxUfDeliveryForm"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
-            app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
-            app:layout_constraintTop_toBottomOf="@+id/boxSpinnerUfDeliveryForm"
-            android:hint="Estado - UF"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textUfDeliveryForm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </com.google.android.material.textfield.TextInputLayout>
+            android:text="@string/estado_uf" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/boxCityDeliveryForm"
@@ -253,10 +217,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
-            app:layout_constraintTop_toBottomOf="@+id/boxUfDeliveryForm"
-            android:hint="Cidade"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerUfDeliveryForm"
+            android:hint="@string/cidade"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -281,7 +246,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxCityDeliveryForm"
-            android:hint="Bairro"
+            android:hint="@string/bairro"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -306,7 +271,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxNeighborhoodDeliveryForm"
-            android:hint="Rua"
+            android:hint="@string/rua"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -331,7 +296,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxStreetDeliveryForm"
-            android:hint="Número"
+            android:hint="@string/n_mero"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -356,7 +321,7 @@
             app:layout_constraintEnd_toEndOf="@id/boxNameDeliveryForm"
             app:layout_constraintStart_toStartOf="@id/boxNameDeliveryForm"
             app:layout_constraintTop_toBottomOf="@+id/boxNumberDeliveryForm"
-            android:hint="Complemento"
+            android:hint="@string/complemento"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
