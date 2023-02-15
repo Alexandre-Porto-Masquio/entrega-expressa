@@ -21,19 +21,16 @@ import kotlinx.coroutines.withContext
 class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_details) {
     private lateinit var detailsViewModel: DeliveryDetailsViewModel
     private var delivery: Delivery? = null
+    private val thisContext = this
     private val binding by lazy {
         ActivityDeliveryDetailsBinding.inflate(layoutInflater)
-    }
-    private val deliveryDao by lazy {
-        AppDatabase.dbInstance(this).deliveryDao()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         title = "Detalhes da Entrega"
-
         setContentView(binding.root)
+        configureViewModel()
     }
 
     override fun onResume() {
@@ -50,11 +47,7 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         when (item.itemId) {
             R.id.menu_details_remove -> {
                 delivery?.let {
-                    lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
-                            deliveryDao.delete(it)
-                        }
-                    }
+                    detailsViewModel.delete(thisContext, it)
                 }
                 finish()
             }
