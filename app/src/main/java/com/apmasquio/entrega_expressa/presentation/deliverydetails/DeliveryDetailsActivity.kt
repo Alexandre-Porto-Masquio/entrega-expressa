@@ -82,7 +82,7 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         detailsViewModel.deliveryDetailsData.observe(this) {
             intent.getIntExtra(Constants.DELIVERY_KEY, -1).let { position ->
                 delivery = it[position]
-                fillFields(delivery!!)
+                delivery?.let { fillFields(it) }
             }
         }
     }

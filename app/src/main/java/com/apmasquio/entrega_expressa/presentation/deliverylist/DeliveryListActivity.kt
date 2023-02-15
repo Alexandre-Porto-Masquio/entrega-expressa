@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) {
 
     private val listViewModel: DeliveryListViewModel by viewModels()
-    val adapter = DeliveryListAdapter()
+    private val adapter = DeliveryListAdapter()
 
     private lateinit var binding: ActivityDeliveryListBinding
 
@@ -28,7 +28,7 @@ class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) 
 
         observeViewModel()
         configureRecyclerView()
-        intentFab()
+        setupIntentFab()
     }
 
     override fun onResume() {
@@ -36,7 +36,7 @@ class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) 
             listViewModel.getAll()
     }
 
-    private fun intentFab() {
+    private fun setupIntentFab() {
         val fabAddDelivery = binding.fabAddDelivery
         fabAddDelivery.setOnClickListener {
             val intent = Intent(this, DeliveryFormActivity::class.java)

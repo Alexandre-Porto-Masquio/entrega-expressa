@@ -18,7 +18,7 @@ class DeliveryListAdapter(
     class ViewHolder(private val binding: DeliveryItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun vincula(delivery: Delivery, position: Int) {
+        fun bind(delivery: Delivery, position: Int) {
             //Click leads to detail screen
             binding.root.setOnClickListener {
                 val intent = Intent(binding.root.context, DeliveryDetailsActivity::class.java)
@@ -50,7 +50,7 @@ class DeliveryListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val delivery = deliveries[position]
-        holder.vincula(delivery, position)
+        holder.bind(delivery, position)
     }
 
     override fun getItemCount(): Int = deliveries.size
