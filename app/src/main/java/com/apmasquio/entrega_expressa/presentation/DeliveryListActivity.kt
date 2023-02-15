@@ -8,13 +8,14 @@ import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryListBinding
 import com.apmasquio.entrega_expressa.presentation.adapter.DeliveryListAdapter
 import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) {
 
     private val listViewModel: DeliveryListViewModel by viewModels()
     val adapter = DeliveryListAdapter()
 
-    private val thisContext = this
     private lateinit var binding: ActivityDeliveryListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +33,7 @@ class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) 
 
     override fun onResume() {
         super.onResume()
-            listViewModel.getAll(thisContext)
+            listViewModel.getAll()
     }
 
     private fun intentFab() {

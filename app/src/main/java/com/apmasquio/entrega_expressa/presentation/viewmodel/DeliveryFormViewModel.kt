@@ -4,15 +4,24 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.apmasquio.entrega_expressa.data.api.LocationApi
+import com.apmasquio.entrega_expressa.data.dao.DeliveryDao
+import com.apmasquio.entrega_expressa.data.models.Delivery
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DeliveryFormViewModel : ViewModel() {
+@HiltViewModel
+class DeliveryFormViewModel @Inject constructor(
+    private val locationApi: LocationApi,
+    private val deliveryDao: DeliveryDao
+) : ViewModel() {
 
     val ufListFormData = MutableLiveData<MutableList<String>>()
     val cityListFormData = MutableLiveData<MutableList<String>>()
-    private val locationApi = LocationApi.create()
+    val finishFormData = MutableLiveData<Boolean>()
+
 
     fun getUfs() {
         ufListFormData.value = listOf("").toMutableList()
@@ -28,7 +37,8 @@ class DeliveryFormViewModel : ViewModel() {
             }
         }
     }
-    fun getCities(uf : String) {
+
+    fun getCities(uf: String) {
         cityListFormData.value = listOf(" ").toMutableList()
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -39,6 +49,22 @@ class DeliveryFormViewModel : ViewModel() {
                 }
                 cityList.sort()
                 cityListFormData.postValue(cityList)
+            }
+        }
+    }
+
+    fun saveOrUpdate(
+        delivery: Delivery,
+        update: Boolean
+    ) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                if (update) {
+                    deliveryDao.update(delivery)
+                } else {
+                    deliveryDao.save(delivery)
+                }
+                finishFormData.postValue(true)
             }
         }
     }

@@ -16,12 +16,20 @@ class DeliveryDetailsViewModel @Inject constructor(
     private val deliveryDao: DeliveryDao
 ) : ViewModel() {
 
-    val detailsData = MutableLiveData<List<Delivery>>()
+    val deliveryDetailsData = MutableLiveData<List<Delivery>>()
 
     fun delete(item: Delivery) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 deliveryDao.delete(item)
+            }
+        }
+    }
+
+    fun loadDelivery() {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                deliveryDetailsData.postValue(deliveryDao.getAll())
             }
         }
     }

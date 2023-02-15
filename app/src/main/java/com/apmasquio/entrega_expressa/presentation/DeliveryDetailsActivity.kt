@@ -6,17 +6,14 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryDetailsBinding
 import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryDetailsViewModel
+import com.apmasquio.entrega_expressa.utils.Constants
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @AndroidEntryPoint
 class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_details) {
@@ -63,17 +60,7 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
     }
 
     private fun tryLoadDelivery() {
-        val db = AppDatabase.dbInstance(this)
-        val deliveryDao = db.deliveryDao()
-        lifecycleScope.launch {
-            withContext(Dispatchers.IO) {
-                val deliveries = deliveryDao.getAll()
-                intent.getIntExtra(DELIVERY_KEY,-1).let { position ->
-                    delivery = deliveries[position]
-                    fillFields(delivery!!)
-                }
-            }
-        }
+        detailsViewModel.loadDelivery()
     }
 
     private fun fillFields(deliveryCarregado: Delivery) {
@@ -93,9 +80,11 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
     }
 
     private fun observeViewModel() {
-        detailsViewModel.detailsData.observe(this) {
-            //run code
+        detailsViewModel.deliveryDetailsData.observe(this) {
+            intent.getIntExtra(Constants.DELIVERY_KEY, -1).let { position ->
+                delivery = it[position]
+                fillFields(delivery!!)
+            }
         }
     }
-
 }

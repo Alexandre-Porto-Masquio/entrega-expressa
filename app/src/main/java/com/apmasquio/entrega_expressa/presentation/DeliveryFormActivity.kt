@@ -8,17 +8,14 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
-import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryFormBinding
 import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryFormViewModel
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DeliveryFormActivity :
     AppCompatActivity(R.layout.activity_delivery_form) {
     private val formViewModel: DeliveryFormViewModel by viewModels()
@@ -65,6 +62,11 @@ class DeliveryFormActivity :
         formViewModel.cityListFormData.observe(this) {
             cityPopulateSpinner()
         }
+        formViewModel.finishFormData.observe(this) {
+            if (it) {
+                finish()
+            }
+        }
     }
 
     private fun ufPopulateSpinner() {
@@ -100,18 +102,8 @@ class DeliveryFormActivity :
         saveButton.setOnClickListener {
 
             if (validateFields()) {
-                val db = AppDatabase.dbInstance(this)
-                val deliveryDao = db.deliveryDao()
-                lifecycleScope.launch {
-                    withContext(Dispatchers.IO) {
-                        if (deliveryId > 0 && ::delivery.isInitialized) {
-                            deliveryDao.update(createDelivery())
-                        } else {
-                            deliveryDao.save(createDelivery())
-                        }
-                        finish()
-                    }
-                }
+                val update = deliveryId > 0 && ::delivery.isInitialized
+                    formViewModel.saveOrUpdate(createDelivery(), update)
             } else {
                 Toast.makeText(
                     this,

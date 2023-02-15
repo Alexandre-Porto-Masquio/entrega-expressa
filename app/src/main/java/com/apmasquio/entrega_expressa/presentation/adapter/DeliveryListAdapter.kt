@@ -35,7 +35,7 @@ class DeliveryListAdapter(
             quantity.text = textQuantity
 
             val date = binding.tvDateDeliveryItem
-            val textDate = "Data: " + delivery.date
+            val textDate = "Data limite: " + delivery.date
             date.text = textDate
 
         }

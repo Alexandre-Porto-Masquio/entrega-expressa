@@ -117,7 +117,7 @@
             android:ellipsize="end"
             android:fontFamily="@font/montserrat_bold"
             android:maxLines="1"
-            android:text="Data:"
+            android:text="Data limite:"
             android:textColor="#1D3731"
             android:textSize="16sp"
             android:textStyle="bold"

@@ -3,6 +3,7 @@ package com.apmasquio.entrega_expressa.di
 import android.app.Application
 import androidx.room.Room
 import com.apmasquio.entrega_expressa.data.AppDatabase
+import com.apmasquio.entrega_expressa.data.api.LocationApi
 import com.apmasquio.entrega_expressa.data.dao.DeliveryDao
 import dagger.Module
 import dagger.Provides
@@ -17,5 +18,10 @@ class AppModule {
     @Singleton
     fun provideDeliveryDao(application: Application): DeliveryDao {
         return AppDatabase.dbInstance(application.applicationContext).deliveryDao()
+    }
+    @Singleton
+    @Provides
+    fun provideLocationApi(): LocationApi {
+        return LocationApi.create()
     }
 }
