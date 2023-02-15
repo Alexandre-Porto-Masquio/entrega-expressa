@@ -47,7 +47,7 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         when (item.itemId) {
             R.id.menu_details_remove -> {
                 delivery?.let {
-                    detailsViewModel.delete(thisContext, it)
+                    detailsViewModel.delete(it)
                 }
                 finish()
             }

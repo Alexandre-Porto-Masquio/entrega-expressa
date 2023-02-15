@@ -3,27 +3,24 @@ package com.apmasquio.entrega_expressa.presentation.viewmodel
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.dao.DeliveryDao
 import com.apmasquio.entrega_expressa.data.models.Delivery
-import com.apmasquio.entrega_expressa.presentation.adapter.DeliveryListAdapter
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class DeliveryDetailsViewModel : ViewModel() {
+@HiltViewModel
+class DeliveryDetailsViewModel @Inject constructor(
+    private val deliveryDao: DeliveryDao
+) : ViewModel() {
 
-    private lateinit var deliveryDao: DeliveryDao
     val detailsData = MutableLiveData<List<Delivery>>()
 
-    fun initializeDeliveryDao(thisContext: Context) {
-        deliveryDao = AppDatabase.dbInstance(thisContext).deliveryDao()
-    }
-
-    fun delete(thisContext: Context, item: Delivery) {
-        initializeDeliveryDao(thisContext)
+    fun delete(item: Delivery) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 deliveryDao.delete(item)
