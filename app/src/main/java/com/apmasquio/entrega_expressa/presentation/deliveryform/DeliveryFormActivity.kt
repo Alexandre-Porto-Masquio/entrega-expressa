@@ -177,12 +177,10 @@ class DeliveryFormActivity :
             }
         }
 
-        if (ufSelectedSpinnerItem.isEmpty()) {
+        if (ufSelectedSpinnerItem.isEmpty() || citySelectedSpinnerItem.isEmpty()) {
             bool = false
         }
-        if (citySelectedSpinnerItem.isEmpty()) {
-            bool = false
-        }
+
         return bool
     }
 
