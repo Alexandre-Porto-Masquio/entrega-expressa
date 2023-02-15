@@ -14,6 +14,6 @@ Algumas das tecnologias utilizadas no projeto:
 - Padrão de arquitetura MVVM;
 - Injeção de dependências com Hilt;
 - Coroutines;
-- ViewBinding.
-- Retrofit
-- Room
+- ViewBinding;
+- Retrofit;
+- Room.
