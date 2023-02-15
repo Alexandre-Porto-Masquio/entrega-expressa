@@ -12,6 +12,7 @@ import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryFormBinding
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
+import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -100,9 +101,9 @@ class DeliveryFormActivity :
         val saveButton = formBinding.btSaveDeliveryForm
         saveButton.setOnClickListener {
 
-            if (validateFields()) {
+            if (validateFields(validateList())) {
                 val update = deliveryId > 0 && ::delivery.isInitialized
-                    formViewModel.saveOrUpdate(createDelivery(), update)
+                formViewModel.saveOrUpdate(createDelivery(), update)
             } else {
                 Toast.makeText(
                     this,
@@ -148,48 +149,38 @@ class DeliveryFormActivity :
         }
     }
 
-    private fun validateFields(): Boolean {
+    private fun validateList() : List<TextInputEditText> {
+        with (formBinding) {
+            return listOf(
+                textNameDeliveryForm,
+                textQuantityDeliveryForm,
+                textDateDeliveryForm,
+                textClientDeliveryForm,
+                textCepDeliveryForm,
+                textCpfDeliveryForm,
+                textNeighborhoodDeliveryForm,
+                textStreetDeliveryForm,
+                textNumberDeliveryForm
+            )
+        }
+    }
+
+    private fun validateFields(validateList : List<TextInputEditText>): Boolean {
         var bool = true
-        if (formBinding.textNameDeliveryForm.text!!.isEmpty()) {
-            formBinding.textNameDeliveryForm.error = "este campo é obrigatório"
-            bool = false
+
+        for (inputText in validateList) {
+            inputText.text?.let {
+                if (it.isEmpty()) {
+                    inputText.error = "este campo é obrigatório"
+                    bool = false
+                }
+            }
         }
-        if (formBinding.textQuantityDeliveryForm.text!!.isEmpty()) {
-            formBinding.textQuantityDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textDateDeliveryForm.text!!.isEmpty()) {
-            formBinding.textDateDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textClientDeliveryForm.text!!.isEmpty()) {
-            formBinding.textClientDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textCepDeliveryForm.text!!.isEmpty()) {
-            formBinding.textCepDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textCpfDeliveryForm.text!!.isEmpty()) {
-            formBinding.textCpfDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
+
         if (ufSelectedSpinnerItem.isEmpty()) {
             bool = false
         }
         if (citySelectedSpinnerItem.isEmpty()) {
-            bool = false
-        }
-        if (formBinding.textNeighborhoodDeliveryForm.text!!.isEmpty()) {
-            formBinding.textNeighborhoodDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textStreetDeliveryForm.text!!.isEmpty()) {
-            formBinding.textStreetDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textNumberDeliveryForm.text!!.isEmpty()) {
-            formBinding.textNumberDeliveryForm.error = "este campo é obrigatório"
             bool = false
         }
         return bool
