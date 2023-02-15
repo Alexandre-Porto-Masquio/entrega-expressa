@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.DeliveryItemBinding
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
-import com.apmasquio.entrega_expressa.presentation.DeliveryDetailsActivity
+import com.apmasquio.entrega_expressa.presentation.deliverydetails.DeliveryDetailsActivity
 
 class DeliveryListAdapter(
     deliveries : List<Delivery> = emptyList()

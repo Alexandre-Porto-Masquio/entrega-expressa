@@ -1,4 +1,4 @@
-package com.apmasquio.entrega_expressa.presentation.viewmodel
+package com.apmasquio.entrega_expressa.presentation.deliverylist
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,24 +12,16 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
-class DeliveryDetailsViewModel @Inject constructor(
+class DeliveryListViewModel @Inject constructor(
     private val deliveryDao: DeliveryDao
 ) : ViewModel() {
 
-    val deliveryDetailsData = MutableLiveData<List<Delivery>>()
+    val listData = MutableLiveData<List<Delivery>>()
 
-    fun delete(item: Delivery) {
+    fun getAll() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                deliveryDao.delete(item)
-            }
-        }
-    }
-
-    fun loadDelivery() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                deliveryDetailsData.postValue(deliveryDao.getAll())
+                listData.postValue(deliveryDao.getAll())
             }
         }
     }

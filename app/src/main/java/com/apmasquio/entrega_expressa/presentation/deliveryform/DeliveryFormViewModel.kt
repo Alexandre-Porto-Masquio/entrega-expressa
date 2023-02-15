@@ -1,4 +1,4 @@
-package com.apmasquio.entrega_expressa.presentation.viewmodel
+package com.apmasquio.entrega_expressa.presentation.deliveryform
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

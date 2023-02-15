@@ -1,4 +1,4 @@
-package com.apmasquio.entrega_expressa.presentation
+package com.apmasquio.entrega_expressa.presentation.deliverydetails
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,9 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.apmasquio.entrega_expressa.R
-import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryDetailsBinding
-import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryDetailsViewModel
+import com.apmasquio.entrega_expressa.presentation.deliveryform.DeliveryFormActivity
 import com.apmasquio.entrega_expressa.utils.Constants
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import dagger.hilt.android.AndroidEntryPoint

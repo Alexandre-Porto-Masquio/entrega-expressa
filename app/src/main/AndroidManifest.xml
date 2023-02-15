@@ -24,13 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".presentation.DeliveryListActivity"
+            android:name=".presentation.deliverylist.DeliveryListActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.DeliveryDetailsActivity"
+            android:name=".presentation.deliverydetails.DeliveryDetailsActivity"
             android:exported="true" />
         <activity
-            android:name=".presentation.DeliveryFormActivity"
+            android:name=".presentation.deliveryform.DeliveryFormActivity"
             android:exported="true" />
     </application>
 

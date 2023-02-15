@@ -1,4 +1,4 @@
-package com.apmasquio.entrega_expressa.presentation
+package com.apmasquio.entrega_expressa.presentation.deliveryform
 
 import android.os.Bundle
 import android.view.View
@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryFormBinding
-import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryFormViewModel
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import dagger.hilt.android.AndroidEntryPoint
 

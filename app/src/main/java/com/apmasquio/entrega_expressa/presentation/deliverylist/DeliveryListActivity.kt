@@ -1,4 +1,4 @@
-package com.apmasquio.entrega_expressa.presentation
+package com.apmasquio.entrega_expressa.presentation.deliverylist
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryListBinding
+import com.apmasquio.entrega_expressa.presentation.deliveryform.DeliveryFormActivity
 import com.apmasquio.entrega_expressa.presentation.adapter.DeliveryListAdapter
-import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryListViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
