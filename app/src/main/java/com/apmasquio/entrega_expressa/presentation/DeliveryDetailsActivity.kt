@@ -5,17 +5,21 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryDetailsBinding
+import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryDetailsViewModel
+import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryListViewModel
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_details) {
+    private lateinit var detailsViewModel: DeliveryDetailsViewModel
     private var delivery: Delivery? = null
     private val binding by lazy {
         ActivityDeliveryDetailsBinding.inflate(layoutInflater)
@@ -93,6 +97,14 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         binding.numberDetailDelivery.setText(deliveryCarregado.number)
         binding.complementDetailDelivery.setText(deliveryCarregado.complement)
 
+    }
+
+    private fun configureViewModel() {
+        detailsViewModel = ViewModelProvider(this)[DeliveryDetailsViewModel::class.java]
+
+        detailsViewModel.detailsData.observe(this) {
+            //run code
+        }
     }
 
 }

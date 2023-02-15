@@ -17,4 +17,6 @@
     <string name="complemento">Complemento</string>
     <string name="n_mero">Número</string>
     <string name="rua">Rua</string>
+    <string name="salvar">Salvar</string>
+    <string name="empty" />
 </resources>

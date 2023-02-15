@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-interface UfApi {
+interface LocationApi {
 
     @GET("localidades/estados")
     suspend fun getUfs(): List<Uf>
@@ -18,13 +18,13 @@ interface UfApi {
     companion object {
         private const val BASE_URL = "https://servicodados.ibge.gov.br/api/v1/"
 
-        fun create(): UfApi {
+        fun create(): LocationApi {
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
-            return retrofit.create(UfApi::class.java)
+            return retrofit.create(LocationApi::class.java)
         }
     }
 }

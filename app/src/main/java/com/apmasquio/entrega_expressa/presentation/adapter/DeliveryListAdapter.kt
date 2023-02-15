@@ -52,7 +52,7 @@ class DeliveryListAdapter(
 
     override fun getItemCount(): Int = deliveries.size
 
-    fun atualiza(deliveries: List<Delivery>) {
+    fun update(deliveries: List<Delivery>) {
         this.deliveries.clear()
         this.deliveries.addAll(deliveries)
     }

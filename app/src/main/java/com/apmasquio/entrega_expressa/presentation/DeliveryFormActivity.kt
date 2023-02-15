@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
@@ -16,7 +15,6 @@ import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryFormBinding
 import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryFormViewModel
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
-import kotlinx.android.synthetic.main.activity_delivery_form.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,8 +25,11 @@ class DeliveryFormActivity :
     private lateinit var delivery: Delivery
     private lateinit var formBinding: ActivityDeliveryFormBinding
     private lateinit var spinnerUf: Spinner
-    private lateinit var adapter: ArrayAdapter<String>
+    private lateinit var spinnerCity: Spinner
+    private lateinit var ufAdapter: ArrayAdapter<String>
+    private lateinit var cityAdapter: ArrayAdapter<String>
     private var ufSelectedSpinnerItem: String = ""
+    private var citySelectedSpinnerItem: String = ""
     private var deliveryId = 0L
     private val thisContext = this
 
@@ -40,7 +41,14 @@ class DeliveryFormActivity :
         val formView = formBinding.root
         setContentView(formView)
 
-        val thisContext = this
+        configureViewModel()
+        spinnerUf = formBinding.spinnerUfDeliveryForm
+        spinnerCity = formBinding.spinnerCityDeliveryForm
+
+        configureSaveButton()
+        ufConfigureSpinnerListener()
+        cityConfigureSpinnerListener()
+        formViewModel.getUfs()
 
         intent.getParcelableExtra<Delivery>(DELIVERY_KEY)?.let { loadedDelivery ->
             delivery = loadedDelivery
@@ -48,37 +56,45 @@ class DeliveryFormActivity :
             fillForm(loadedDelivery)
         }
 
-        spinnerUf = formBinding.spinnerUfDeliveryForm
-        configureSaveButton()
-        configureSpinnerListener()
     }
 
     private fun configureViewModel() {
-        formViewModel = ViewModelProvider(this).get(DeliveryFormViewModel::class.java)
+        formViewModel = ViewModelProvider(this)[DeliveryFormViewModel::class.java]
 
-        formViewModel.formData.observe(this, Observer {
-            populateSpinner()
-        })
+        formViewModel.ufListFormData.observe(this) {
+            ufPopulateSpinner()
+        }
+        formViewModel.cityListFormData.observe(this) {
+            cityPopulateSpinner()
+        }
     }
 
-    private fun populateSpinner() {
-        adapter = formViewModel.formData.value?.let { ArrayAdapter(
-            thisContext,
-            android.R.layout.simple_spinner_item,
-            it
-        )}!!
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        configSpinnerAdapter(spinnerUf, adapter)
+    private fun ufPopulateSpinner() {
+        ufAdapter = formViewModel.ufListFormData.value?.let {
+            ArrayAdapter(
+                thisContext,
+                android.R.layout.simple_spinner_item,
+                it
+            )
+        }!!
+        ufAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        configSpinnerAdapter(spinnerUf, ufAdapter)
+    }
+
+    private fun cityPopulateSpinner() {
+        cityAdapter = formViewModel.cityListFormData.value?.let {
+            ArrayAdapter(
+                thisContext,
+                android.R.layout.simple_spinner_item,
+                it
+            )
+        }!!
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        configSpinnerAdapter(spinnerCity, cityAdapter)
     }
 
     private fun configSpinnerAdapter(spinner: Spinner, adapter: ArrayAdapter<String>) {
         spinner.adapter = adapter
-    }
-
-    override fun onResume() {
-        super.onResume()
-        configureViewModel()
-        formViewModel.getUfs()
     }
 
     private fun configureSaveButton() {
@@ -108,14 +124,37 @@ class DeliveryFormActivity :
         }
     }
 
-    private fun configureSpinnerListener() {
+    private fun ufConfigureSpinnerListener() {
         spinnerUf.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 ufSelectedSpinnerItem = parent?.getItemAtPosition(position).toString()
+                formViewModel.getCities(ufSelectedSpinnerItem)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 ufSelectedSpinnerItem = ""
+            }
+        }
+    }
+
+    private fun cityConfigureSpinnerListener() {
+        spinnerCity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                citySelectedSpinnerItem = parent?.getItemAtPosition(position).toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                citySelectedSpinnerItem = ""
             }
         }
     }
@@ -149,8 +188,7 @@ class DeliveryFormActivity :
         if (ufSelectedSpinnerItem.isEmpty()) {
             bool = false
         }
-        if (formBinding.textCityDeliveryForm.text!!.isEmpty()) {
-            formBinding.textCityDeliveryForm.error = "este campo é obrigatório"
+        if (citySelectedSpinnerItem.isEmpty()) {
             bool = false
         }
         if (formBinding.textNeighborhoodDeliveryForm.text!!.isEmpty()) {
@@ -194,8 +232,7 @@ class DeliveryFormActivity :
 
         val uf = ufSelectedSpinnerItem
 
-        val fieldCity = formBinding.textCityDeliveryForm
-        val city = fieldCity.text.toString()
+        val city = citySelectedSpinnerItem
 
         val fieldNeighborhood = formBinding.textNeighborhoodDeliveryForm
         val neighborhood = fieldNeighborhood.text.toString()
@@ -233,8 +270,8 @@ class DeliveryFormActivity :
         formBinding.textClientDeliveryForm.setText(loadedDelivery.client)
         formBinding.textCpfDeliveryForm.setText(loadedDelivery.cpf)
         formBinding.textCepDeliveryForm.setText(loadedDelivery.cep)
-        formViewModel.formData.value?.let { spinnerUf.setSelection(it.indexOf(loadedDelivery.uf)) }
-        formBinding.textCityDeliveryForm.setText(loadedDelivery.city)
+        formViewModel.ufListFormData.value?.let { spinnerUf.setSelection(it.indexOf(loadedDelivery.uf)) }
+        formViewModel.ufListFormData.value?.let { spinnerUf.setSelection(it.indexOf(loadedDelivery.city)) }
         formBinding.textNeighborhoodDeliveryForm.setText(loadedDelivery.neighborhood)
         formBinding.textStreetDeliveryForm.setText(loadedDelivery.street)
         formBinding.textNumberDeliveryForm.setText(loadedDelivery.number)
