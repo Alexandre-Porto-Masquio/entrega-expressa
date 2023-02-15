@@ -26,14 +26,17 @@ class DeliveryListAdapter(
                 binding.root.context.startActivity(intent)
             }
 
-            val nome = binding.nameDeliveryItem
-            nome.text = delivery.name
+            val nome = binding.tvNameDeliveryItem
+            val textName = "ID: " + delivery.name
+            nome.text = textName
 
-            val quantity = binding.quantityDeliveryItem
-            quantity.text = delivery.quantity
+            val quantity = binding.tvQuantityDeliveryItem
+            val textQuantity = "Quantidade: " + delivery.quantity
+            quantity.text = textQuantity
 
-            val date = binding.dateDeliveryItem
-            date.text = delivery.date
+            val date = binding.tvDateDeliveryItem
+            val textDate = "Data: " + delivery.date
+            date.text = textDate
 
         }
 

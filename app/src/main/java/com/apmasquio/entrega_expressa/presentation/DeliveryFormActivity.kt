@@ -6,8 +6,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
@@ -21,7 +21,7 @@ import kotlinx.coroutines.withContext
 
 class DeliveryFormActivity :
     AppCompatActivity(R.layout.activity_delivery_form) {
-    private lateinit var formViewModel: DeliveryFormViewModel
+    private val formViewModel: DeliveryFormViewModel by viewModels()
     private lateinit var delivery: Delivery
     private lateinit var formBinding: ActivityDeliveryFormBinding
     private lateinit var spinnerUf: Spinner
@@ -41,7 +41,7 @@ class DeliveryFormActivity :
         val formView = formBinding.root
         setContentView(formView)
 
-        configureViewModel()
+        observeViewModel()
         spinnerUf = formBinding.spinnerUfDeliveryForm
         spinnerCity = formBinding.spinnerCityDeliveryForm
 
@@ -58,9 +58,7 @@ class DeliveryFormActivity :
 
     }
 
-    private fun configureViewModel() {
-        formViewModel = ViewModelProvider(this)[DeliveryFormViewModel::class.java]
-
+    private fun observeViewModel() {
         formViewModel.ufListFormData.observe(this) {
             ufPopulateSpinner()
         }
@@ -201,10 +199,6 @@ class DeliveryFormActivity :
         }
         if (formBinding.textNumberDeliveryForm.text!!.isEmpty()) {
             formBinding.textNumberDeliveryForm.error = "este campo é obrigatório"
-            bool = false
-        }
-        if (formBinding.textComplementDeliveryForm.text!!.isEmpty()) {
-            formBinding.textComplementDeliveryForm.error = "este campo é obrigatório"
             bool = false
         }
         return bool

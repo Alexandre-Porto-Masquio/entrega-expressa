@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:clickable="true"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="0dp"
     android:layout_marginEnd="8dp"
-    app:cardBackgroundColor="#000109"
+    android:layout_marginBottom="0dp"
+    android:clickable="true"
+    app:cardBackgroundColor="#305070"
     app:cardCornerRadius="16dp"
     app:cardElevation="10dp">
 
@@ -20,58 +19,77 @@
         android:layout_height="150dp">
 
         <TextView
-            android:id="@+id/nameDeliveryItem"
+            android:id="@+id/tvNameDeliveryItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:maxLines="1"
             android:textColor="#00CDA3"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:fontFamily="sans-serif-medium"
-            tools:text="Nome da entrega" />
+            tools:text="ID de entrega" />
 
         <TextView
-            android:id="@+id/quantityDeliveryItem"
+            android:id="@+id/tvQuantityDeliveryItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif"
             android:maxLines="1"
-            android:textColor="#4B8181"
+            android:textColor="@color/light_green"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/nameDeliveryItem"
+            app:layout_constraintEnd_toEndOf="@+id/tvNameDeliveryItem"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/nameDeliveryItem"
-            app:layout_constraintTop_toBottomOf="@id/nameDeliveryItem"
+            app:layout_constraintStart_toStartOf="@+id/tvNameDeliveryItem"
+            app:layout_constraintTop_toBottomOf="@id/tvNameDeliveryItem"
             tools:text="Quantidade de entregas" />
 
         <TextView
-            android:id="@+id/dateDeliveryItem"
+            android:id="@+id/tvDateDeliveryItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginTop="6dp"
+            android:layout_marginBottom="8dp"
             android:ellipsize="end"
             android:fontFamily="sans-serif-black"
             android:maxLines="1"
-            android:textColor="@color/teal_700"
+            android:textColor="@color/light_teal"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/quantityDeliveryItem"
+            app:layout_constraintEnd_toEndOf="@+id/tvQuantityDeliveryItem"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/quantityDeliveryItem"
-            app:layout_constraintTop_toBottomOf="@+id/quantityDeliveryItem"
+            app:layout_constraintStart_toStartOf="@+id/tvQuantityDeliveryItem"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuantityDeliveryItem"
             tools:text="Data limite da entrega" />
+
+        <TextView
+            android:id="@+id/tvClicikDeliveryItem"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Clique para mais detalhes"
+            android:textColor="@color/light_grey"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvQuantityDeliveryItem"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/tvDateDeliveryItem"
+            app:layout_constraintTop_toBottomOf="@+id/tvDateDeliveryItem" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

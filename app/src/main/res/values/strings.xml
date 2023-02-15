@@ -3,7 +3,7 @@
     <string name="fab">FAB</string>
     <string name="textview">TextView</string>
     <string name="fabDescription">FAB</string>
-    <string name="hintName">Nome</string>
+    <string name="hintName">ID de entrega</string>
     <string name="hintQuantidade">Quantidade</string>
     <string name="hintDataLimite">Data limite</string>
     <string name="dados_da_entrega">Dados da entrega:</string>

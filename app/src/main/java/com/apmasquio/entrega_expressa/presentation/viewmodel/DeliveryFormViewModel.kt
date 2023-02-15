@@ -2,7 +2,6 @@ package com.apmasquio.entrega_expressa.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.apmasquio.entrega_expressa.data.api.LocationApi
 import kotlinx.coroutines.Dispatchers
@@ -30,7 +29,7 @@ class DeliveryFormViewModel : ViewModel() {
         }
     }
     fun getCities(uf : String) {
-        cityListFormData.value = listOf("1", "2", "3").toMutableList()
+        cityListFormData.value = listOf(" ").toMutableList()
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val cityList = mutableListOf<String>()

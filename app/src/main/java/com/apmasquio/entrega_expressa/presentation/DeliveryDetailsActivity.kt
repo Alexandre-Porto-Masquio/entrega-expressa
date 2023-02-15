@@ -4,24 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryDetailsBinding
 import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryDetailsViewModel
-import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryListViewModel
 import com.apmasquio.entrega_expressa.utils.Constants.DELIVERY_KEY
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@AndroidEntryPoint
 class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_details) {
-    private lateinit var detailsViewModel: DeliveryDetailsViewModel
+    private val detailsViewModel: DeliveryDetailsViewModel by viewModels()
     private var delivery: Delivery? = null
-    private val thisContext = this
     private val binding by lazy {
         ActivityDeliveryDetailsBinding.inflate(layoutInflater)
     }
@@ -30,7 +30,7 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
         super.onCreate(savedInstanceState)
         title = "Detalhes da Entrega"
         setContentView(binding.root)
-        configureViewModel()
+        observeViewModel()
     }
 
     override fun onResume() {
@@ -92,9 +92,7 @@ class DeliveryDetailsActivity : AppCompatActivity(R.layout.activity_delivery_det
 
     }
 
-    private fun configureViewModel() {
-        detailsViewModel = ViewModelProvider(this)[DeliveryDetailsViewModel::class.java]
-
+    private fun observeViewModel() {
         detailsViewModel.detailsData.observe(this) {
             //run code
         }

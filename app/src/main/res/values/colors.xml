@@ -10,4 +10,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="background">#161621</color>
+    <color name="light_green">#9BFF91</color>
+    <color name="light_teal">#FF01A7C6</color>
+    <color name="light_grey">#CCCCCCCC</color>
 </resources>

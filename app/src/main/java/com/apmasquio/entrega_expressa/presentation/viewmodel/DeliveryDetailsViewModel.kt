@@ -1,10 +1,8 @@
 package com.apmasquio.entrega_expressa.presentation.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.apmasquio.entrega_expressa.data.AppDatabase
 import com.apmasquio.entrega_expressa.data.dao.DeliveryDao
 import com.apmasquio.entrega_expressa.data.models.Delivery
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,5 +25,4 @@ class DeliveryDetailsViewModel @Inject constructor(
             }
         }
     }
-
 }

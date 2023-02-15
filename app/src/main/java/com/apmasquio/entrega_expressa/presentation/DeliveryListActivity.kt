@@ -2,8 +2,8 @@ package com.apmasquio.entrega_expressa.presentation
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.apmasquio.entrega_expressa.R
 import com.apmasquio.entrega_expressa.databinding.ActivityDeliveryListBinding
 import com.apmasquio.entrega_expressa.presentation.adapter.DeliveryListAdapter
@@ -11,7 +11,7 @@ import com.apmasquio.entrega_expressa.presentation.viewmodel.DeliveryListViewMod
 
 class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) {
 
-    private lateinit var listViewModel: DeliveryListViewModel
+    private val listViewModel: DeliveryListViewModel by viewModels()
     val adapter = DeliveryListAdapter()
 
     private val thisContext = this
@@ -25,7 +25,7 @@ class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) 
         val view = binding.root
         setContentView(view)
 
-        configureViewModel()
+        observeViewModel()
         configureRecyclerView()
         intentFab()
     }
@@ -48,9 +48,7 @@ class DeliveryListActivity : AppCompatActivity(R.layout.activity_delivery_list) 
         recyclerView.adapter = adapter
     }
 
-    private fun configureViewModel() {
-        listViewModel = ViewModelProvider(this)[DeliveryListViewModel::class.java]
-
+    private fun observeViewModel() {
         listViewModel.listData.observe(this) {
             adapter.update(it)
             adapter.notifyData()
