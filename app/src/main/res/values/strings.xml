@@ -19,4 +19,22 @@
     <string name="rua">Rua</string>
     <string name="salvar">Salvar</string>
     <string name="empty" />
+    <string name="quantidade">Quantidade:</string>
+    <string name="id_de_entrega">ID de entrega</string>
+    <string name="id">ID:</string>
+    <string name="entrega">Entrega:</string>
+    <string name="data_limite">Data limite:</string>
+    <string name="data_da_entrega">Data da entrega</string>
+    <string name="cliente">Cliente:</string>
+    <string name="cpf">CPF:</string>
+    <string name="endere_o">Endereço:</string>
+    <string name="cep2">CEP:</string>
+    <string name="estado">Estado:</string>
+    <string name="cidade2">Cidade:</string>
+    <string name="bairro2">Bairro:</string>
+    <string name="rua2">Rua:</string>
+    <string name="n_mero2">Número:</string>
+    <string name="complemento2">Complemento:</string>
+    <string name="editar">Editar</string>
+    <string name="remover">Remover</string>
 </resources>
